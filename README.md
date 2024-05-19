@@ -65,9 +65,6 @@ You can use the interactive script to generate text or integrate the model into 
 ### Contributing
 We welcome contributions! Please read our Contributing Guidelines for more information on how to contribute to this project.
 
-### License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
 ### Acknowledgments
 Project Gutenberg for providing the dataset.
 Keras and TensorFlow for the deep learning framework.
