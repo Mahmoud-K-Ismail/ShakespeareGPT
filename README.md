@@ -34,11 +34,6 @@ ShakespeareGPT is a text generation model designed to emulate the writing style 
    ```
 3. Download the dataset: The model is trained on the complete works of William Shakespeare from Project Gutenberg. This script will automatically download and preprocess the data.
 
-4. Configure Git (if necessary):
-```sh
-git config --global user.name "Mahmoud-K-Ismail"
-git config --global user.email "mkassem582@gmail.com"
-```
 ### Training the Model
    1. Initialize the dataset:
    ```sh
