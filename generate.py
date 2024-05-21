@@ -1,7 +1,8 @@
 # generate.py
 import numpy as np
 from keras.models import load_model
-
+import tkinter as tk
+from tkinter import messagebox
 # Load preprocessed data
 data = np.load('preprocessed_data.npz', allow_pickle=True)
 maximum_seq_length = int(data['maximum_seq_length'])
@@ -83,8 +84,49 @@ def generate_beam(model, text, char_indices, indices_char, maximum_seq_length, b
     best_sequence = best_beam[2]
     return generated + best_sequence
 
-# Main loop to prompt user for input and generate text
-while True:
+def generate_text():
+    input_text = entry.get().strip()
+    if len(input_text.split()) != 6:
+        messagebox.showerror("Error", "Please enter exactly 6 words.")
+        return
+
+    output_1 = generate_sample(model_1, input_text.lower(), char_indices, indices_char, maximum_seq_length, temperature=0.7)
+    output_2 = generate_beam(model_1, input_text.lower(), char_indices, indices_char, maximum_seq_length)
+
+    output_text_1.set("Model 1 Output:\n" + output_1)
+    output_text_2.set("Model 2 Output:\n" + output_2)
+
+def reset_fields():
+    entry.delete(0, tk.END)
+    output_text_1.set("")
+    output_text_2.set("")
+
+# Initialize main window
+root = tk.Tk()
+root.title("Text Generation GUI")
+
+# Initialize variables
+output_text_1 = tk.StringVar()
+output_text_2 = tk.StringVar()
+
+# Create and place widgets
+tk.Label(root, text="Enter a 6-word sentence:").pack(pady=5)
+entry = tk.Entry(root, width=50)
+entry.pack(pady=5)
+
+tk.Button(root, text="Generate Text", command=generate_text).pack(pady=10)
+
+tk.Label(root, textvariable=output_text_1, wraplength=400, justify="left").pack(pady=5)
+tk.Label(root, textvariable=output_text_2, wraplength=400, justify="left").pack(pady=5)
+
+tk.Button(root, text="Generate Another Text", command=reset_fields).pack(pady=10)
+tk.Button(root, text="Quit", command=root.quit).pack(pady=10)
+
+# Run the application
+root.mainloop()
+
+# Main loop to prompt user for input and generate text (Terminal)
+'''while True:
     input_text = input("Enter a 6-word sentence: ").strip()
     if len(input_text.split()) != 6:
         print("Please enter exactly 6 words.")
@@ -100,4 +142,4 @@ while True:
     if cont != 'yes':
         break
 
-print("Generation done.")
+print("Generation done.")'''
