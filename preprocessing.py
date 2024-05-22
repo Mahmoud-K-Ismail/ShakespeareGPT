@@ -67,8 +67,17 @@ def preprocess_data():
             X[i, j, char_indices[char]] = 1
         y[i, char_indices[next_char[i]]] = 1
 
-    return X, y, maximum_seq_length, voc_chars, char_indices, indices_char
+    X_emb = np.zeros((len(sentences), maximum_seq_length))
+    y_emb = np.zeros((len(sentences),1))
+    for i,sentence in enumerate(sentences):
+        # Loop over the characters
+        for j,c in enumerate(sentence):
+            # Put the right value of X to its index
+            X_emb[i,j] = char_indices[c]
+        # Put the right value of y to its index
+        y_emb[i] = char_indices[next_char[i]]
+    return X, y, maximum_seq_length, voc_chars, char_indices, indices_char,X_emb,y_emb
 
-X, y, maximum_seq_length, voc_chars, char_indices, indices_char = preprocess_data()
+X, y, maximum_seq_length, voc_chars, char_indices, indices_char,X_emb,y_emb = preprocess_data()
 np.savez('preprocessed_data.npz', X=X, y=y, maximum_seq_length=maximum_seq_length, 
-         voc_chars=voc_chars, char_indices=char_indices, indices_char=indices_char)
+         voc_chars=voc_chars, char_indices=char_indices, indices_char=indices_char,X_emb=X_emb,y_emb=y_emb)
