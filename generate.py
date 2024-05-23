@@ -71,13 +71,15 @@ def get_tensor_emb(sentence, maximum_seq_length, voc):
     x = np.array([[voc.get(idx, 0) for idx in sentence]], dtype=np.int32)
     return x
 
-def generate_sample_emb(model, text, num_generated=120, temperature=1.0):
+#THAT IS THE BEST MODEL AFTER TESTING
+def generate_sample_emb(model, text, num_generated=120, temperature=1.0, count =6):
+    c = 0
     # Initialize generated text with input text.
     generated = text
     # Get last part of input text.
     sentence = text[-maximum_seq_length:]
     # Loop until generated text reaches desired length.
-    for i in range(num_generated):
+    while True:
         # Convert sentence to tensor embeddings.
         x = get_tensor_emb(sentence, maximum_seq_length, voc = char_indices)
         # Get model predictions for next character.
@@ -90,6 +92,11 @@ def generate_sample_emb(model, text, num_generated=120, temperature=1.0):
         generated += next_char
         # Update sentence for next iteration.
         sentence = sentence[1:] + next_char
+        #Terminate based on the number of sentences
+        if next_char in ['\n', '.', '?', '!'] :
+           c +=1
+           if c == count:
+                break
     # Return generated text.
     return(generated)
 
@@ -102,7 +109,7 @@ def generate_text():
     sentence_count = int(sentence_count_var.get())
 
     output_1 = generate_sample(model_1, input_text.lower(), char_indices, indices_char, maximum_seq_length, temperature=0.7, count=sentence_count)
-    output_2 = generate_sample_emb(model_emb_m2m, input_text.lower(), temperature = 0.7)
+    output_2 = generate_sample_emb(model_emb_m2m, input_text.lower(), temperature = 0.7,count=sentence_count)
     output_text_1.set("Model 1 Output:\n" + output_1)
     output_text_2.set("Model 2 Output:\n" + output_2)
 
