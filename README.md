@@ -10,6 +10,12 @@ ShakespeareGPT is a text generation model designed to emulate the writing style 
 - **Beam Search**: Implements beam search algorithm for generating more coherent and contextually accurate text.
 - **Interactive GUI**: Includes a user-friendly graphical interface for inputting prompts and displaying generated text.
 
+## Models:
+
+- **model_1:** will be referred to as the "Index-Based Model".
+- **model_emb_m2m:** will be referred to as the "One-Hot-Encoding-Based Model".
+
+
 ## Getting Started
 
 ### Prerequisites
