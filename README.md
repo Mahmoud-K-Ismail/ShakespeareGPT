@@ -78,7 +78,7 @@ We welcome contributions! Please read our Contributing Guidelines for more infor
 
 ## Limitations
 
-![Model Outputs](./path/to/your/image.png)
+![Model Outputs](Model_Outputs.png)
 
 ### Model 1 (One-Hot + LSTM)
 - Output is mostly incomprehensible (e.g., `.s.oa.ooa.`).
